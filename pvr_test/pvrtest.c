@@ -327,12 +327,11 @@ int main(int argc, char **argv) {
             balls[i].rx += balls[i].drx * 0.01f;
             balls[i].ry += balls[i].dry * 0.01f;
             
-            // Keep rotations within 0-360 range (in radians)
             if (balls[i].rx >= 6.28f) balls[i].rx -= 6.28f;
             if (balls[i].ry >= 6.28f) balls[i].ry -= 6.28f;
         }
 
-        // Then render all balls with their updated rotations
+        //  render all balls with their updated rotations
         for (int i = 0; i < NUM_BALLS; i++) {
             RenderDMSModel(gModel, modelScale, 
                         balls[i].rx, balls[i].ry, balls[i].rz,

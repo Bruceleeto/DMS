@@ -28,3 +28,11 @@ raylib/main.o
 raylib/gl_png.o
 raylib/dms.o
 pvr_test/romdisk/ball0.tex
+pvr_test/pvrtest.c
+pvr_test/romdisk.o
+pvr_test/romdisk.img
+.gitignore
+pvr_test/pvrtest.elf
+pvr_test/pvrtest.o
+.gitignore
+pvr_test/dms.o

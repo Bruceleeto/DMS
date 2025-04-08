@@ -7,7 +7,7 @@ STRIPPY = $(CONVERTER_DIR)/strippy
 CFLAGS = -O3 \
          -fomit-frame-pointer -flto -fbuiltin -ffast-math -ffp-contract=fast -mfsrra -mfsca \
          -fmerge-all-constants  \
-         -ftree-vectorize  -I$(KOS_BASE)/utils
+         -ftree-vectorize  
 
 all: rm-elf convert-textures convert-models $(TARGET)
 
@@ -16,7 +16,7 @@ convert-textures:
 	@for png_file in assets/*.png; do \
 		base_name=$$(basename $$png_file .png); \
 		echo "Converting $$png_file to $(KOS_ROMDISK_DIR)/$$base_name.tex"; \
-		pvrtex -i $$png_file -o $(KOS_ROMDISK_DIR)/$$base_name.tex -f RGB565 -c -m; \
+		$(KOS_BASE)/utils/pvrtex/pvrtex -i $$png_file -o $(KOS_ROMDISK_DIR)/$$base_name.tex -f RGB565 -c -m; \
 	done
 
 $(STRIPPY):

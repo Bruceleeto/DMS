@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include "dms.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
 
  #define NUM_BALLS 10
 
@@ -58,7 +56,7 @@ int main(int argc, char **argv) {
     // Set up projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45.0f, (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+    gluPerspective(45.0f, 640.0f / 480.0f, 0.1f, 100.0f);
     glMatrixMode(GL_MODELVIEW);
     
     // Enable texturing and depth testing
@@ -131,14 +129,11 @@ int main(int argc, char **argv) {
     
     // Main loop
     while(1) {
-        // Update timing
         current_time = timer_ms_gettime64();
         last_time = current_time;
         
-        // Calculate FPS and PPS
         fps_counter++;
         
-        // Display FPS and PPS once per second
         if (current_time - fps_display_timer >= 1000) {
             fps = fps_counter * 1000.0f / (float)(current_time - fps_display_timer);
             pps = fps * total_polys;

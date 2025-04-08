@@ -153,7 +153,6 @@ DMSModel* LoadDMSModel(const char* filename) {
             fread(mesh->indices, sizeof(unsigned int), mesh->indexCount, file);
         }
         
-        //  
         mesh->triangleCount = 0; 
     }
 
@@ -168,72 +167,37 @@ DMSModel* LoadDMSModel(const char* filename) {
 }
 
 // Load textures for a DMS model
-int LoadDMSTextures(DMSModel* model, const char* basePath, const char* modelTextureName) {
+int LoadDMSTextures(DMSModel* model, const char* basePath, const char* defaultTexture) {
     if (!model || model->textureCount <= 0) return 0;
     
     int successCount = 0;
     printf("Loading %d textures for model\n", model->textureCount);
     
-    // Extract model texture basename without path
-    const char* baseName = strrchr(modelTextureName, '/');
-    if (baseName) {
-        baseName++; // Skip the '/'
-    } else {
-        baseName = modelTextureName;
-    }
-    
-    // Extract base texture name (without index)
-    char baseTexName[64] = {0};
-    strncpy(baseTexName, baseName, sizeof(baseTexName) - 1);
-    
-    // Remove index and extension if present
-    char* digit = strchr(baseTexName, '0');
-    if (digit) *digit = '\0';
-    
     // Load each texture
     for (int i = 0; i < model->textureCount; i++) {
         char texturePath[256];
-        int loaded = 0;
+        sprintf(texturePath, "%s/texture%d.tex", basePath, i);
         
-        sprintf(texturePath, "%s/%s%d.tex", basePath, baseTexName, i);
         model->textures[i] = LoadTextureDTEX(texturePath);
-        
         if (model->textures[i].id != 0) {
             printf("Loaded texture %d: %s\n", i, texturePath);
             successCount++;
-            loaded = 1;
-        }
-        
-        if (!loaded && i == 0) {
-            sprintf(texturePath, "%s/%s", basePath, baseName);
-            model->textures[i] = LoadTextureDTEX(texturePath);
-            
-            if (model->textures[i].id != 0) {
-                printf("Loaded texture %d: %s\n", i, texturePath);
-                successCount++;
-                loaded = 1;
-            }
-        }
-        
-        // 3. Fallback to generic texture pattern
-        if (!loaded) {
-            sprintf(texturePath, "%s/texture%d.tex", basePath, i);
-            model->textures[i] = LoadTextureDTEX(texturePath);
-            
-            if (model->textures[i].id != 0) {
-                printf("Loaded texture %d: %s\n", i, texturePath);
-                successCount++;
-                loaded = 1;
-            } else {
-                printf("Texture not found for ID %d\n", i);
-                // Initialize with empty texture
-                memset(&model->textures[i], 0, sizeof(Texture2D));
+        } else {
+            printf("Failed to load texture %d: %s\n", i, texturePath);
+            // Try fallback texture if provided
+            if (defaultTexture) {
+                model->textures[i] = LoadTextureDTEX(defaultTexture);
+                if (model->textures[i].id != 0) {
+                    printf("Loaded fallback texture for %d\n", i);
+                    successCount++;
+                }
             }
         }
     }
     
     return successCount;
 }
+
 // Update animation for a DMS model
 void UpdateDMSModelAnimation(DMSModel* model, float deltaTime) {
     if (!model || !model->skeleton || model->skeleton->animCount == 0) return;
@@ -322,7 +286,7 @@ void RenderDMSModel(DMSModel* dmsModel, Vector3 position, float scale, Color tin
     if (!dmsModel) return;
     
     // Disable lighting since  not using normals
-  // glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHTING);
     
     glPushMatrix();
     
@@ -333,7 +297,7 @@ void RenderDMSModel(DMSModel* dmsModel, Vector3 position, float scale, Color tin
     // Enable client states once at the beginning
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);  // Enable if using normals
+    // glEnableClientState(GL_NORMAL_ARRAY);  // Enable if using normals
     
     // For each mesh
     for (int m = 0; m < dmsModel->meshCount; m++) {
@@ -359,7 +323,7 @@ void RenderDMSModel(DMSModel* dmsModel, Vector3 position, float scale, Color tin
         // Point to our vertex data
         glVertexPointer(3, GL_FLOAT, sizeof(DMSVertex), &vertexBuffer[0].x);
         glTexCoordPointer(2, GL_FLOAT, sizeof(DMSVertex), &vertexBuffer[0].u);
-         glNormalPointer(GL_BYTE, sizeof(DMSVertex), &vertexBuffer[0].nx);  // Use if enabling normals
+        // glNormalPointer(GL_BYTE, sizeof(DMSVertex), &vertexBuffer[0].nx); 
         
         // Process all triangle strips first
         int i = 0;
@@ -398,6 +362,7 @@ void RenderDMSModel(DMSModel* dmsModel, Vector3 position, float scale, Color tin
             }
         }
         
+        // Now collect all individual triangles into one batch
         int triangleCount = 0;
         i = 0;
         
@@ -457,7 +422,7 @@ void RenderDMSModel(DMSModel* dmsModel, Vector3 position, float scale, Color tin
     // Disable client states at the end
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glDisableClientState(GL_NORMAL_ARRAY);  // Disable if using normals
+    // glDisableClientState(GL_NORMAL_ARRAY);  // Disable if using normals
     
     // Reset texture state
     glDisable(GL_TEXTURE_2D);
@@ -493,7 +458,6 @@ void UnloadDMSModel(DMSModel* model) {
         free(model->skeleton);
     }
     
-    // Free textures array (but not textures themselves)
     if (model->textures) free(model->textures);
     
     free(model);

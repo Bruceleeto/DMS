@@ -1,0 +1,45 @@
+#ifndef __GL_PNG_H__
+#define __GL_PNG_H__
+
+#include <stdio.h>
+#include <stdint.h>
+#include <GL/gl.h>
+#include <raylib.h>
+
+typedef struct _texture {
+	GLuint 		id;
+	GLenum 		format;
+	GLenum 		min_filter;
+	GLenum 		mag_filter;
+	GLenum		blend_source;
+	GLenum		blend_dest;
+	int 			loaded;
+	uint16_t 	w, h; // width / height of texture image
+	int				size[2];
+	float 		u, v; //uv COORD
+	float 		uSize, vSize; // uvSize
+	float 		xScale, yScale; //render scale
+	float 		a; //alpha
+	float 		light; //alpha
+	float 		color[3];
+	char  		path[32];
+} texture;
+
+
+/* DTEX Image type - contains height, width, and data */
+typedef struct Image_Dt {
+    unsigned long sizeX;
+    unsigned long sizeY;
+    char 					*data;
+    GLenum 				internalFormat, transferFormat, transferType;
+    unsigned int	mipmapped, compressed, twiddled;
+    unsigned int 	dataSize;
+} Image_Dt;
+
+
+int 	dtex_to_gl_texture(texture *tex, char* filename);
+void 	draw_textured_quad(texture *tex);
+Texture2D LoadTextureDTEX(const char *fileName);  
+
+
+#endif

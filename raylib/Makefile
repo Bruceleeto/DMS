@@ -1,4 +1,4 @@
-TARGET = anim_gl.elf
+TARGET = raylib.elf
 OBJS = main.o dms.o gl_png.o romdisk.o
 KOS_ROMDISK_DIR = romdisk
 CONVERTER_DIR = ../converter
@@ -7,7 +7,7 @@ STRIPPY = $(CONVERTER_DIR)/strippy
 CFLAGS = -O3 \
          -fomit-frame-pointer -flto -fbuiltin -ffast-math -ffp-contract=fast -mfsrra -mfsca \
          -fmerge-all-constants  \
-         -ftree-vectorize  
+         -ftree-vectorize -I${KOS_PORTS}/include/raylib
 
 all: rm-elf convert-textures convert-models $(TARGET)
 
@@ -48,7 +48,7 @@ rm-elf:
 	-rm -f $(TARGET) romdisk.*
 
 $(TARGET): $(OBJS)
-	kos-cc $(CFLAGS) -o $(TARGET) $(OBJS) -lGL -lm -lkosutils 
+	kos-cc $(CFLAGS) -o $(TARGET) $(OBJS) -lraylib  -lGL -lm -lkosutils 
 
 run: $(TARGET)
 	$(KOS_LOADER) $(TARGET)
@@ -56,3 +56,12 @@ run: $(TARGET)
 dist: $(TARGET)
 	-rm -f $(OBJS) romdisk.img
 	$(KOS_STRIP) $(TARGET)
+
+
+
+
+
+
+
+
+

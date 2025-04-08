@@ -1,0 +1,14 @@
+converter/strippy
+converter/libs/TriStripper/libTriStripper.a
+converter/libs/TriStripper/src/connectivity_graph.o
+converter/libs/TriStripper/src/policy.o
+converter/libs/TriStripper/src/tri_stripper.o
+gldc_benchmark/benchy.elf
+gldc_benchmark/dms.o
+gldc_benchmark/gl_png.o
+gldc_benchmark/main.o
+gldc_benchmark/Makefile
+gldc_benchmark/romdisk.img
+gldc_benchmark/romdisk.o
+gldc_benchmark/romdisk/ball.dms
+gldc_benchmark/romdisk/ball0.tex

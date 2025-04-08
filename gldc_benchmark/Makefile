@@ -7,7 +7,7 @@ STRIPPY = $(CONVERTER_DIR)/strippy
 CFLAGS = -O3 \
          -fomit-frame-pointer -flto -fbuiltin -ffast-math -ffp-contract=fast -mfsrra -mfsca \
          -fmerge-all-constants  \
-         -ftree-vectorize  
+         -ftree-vectorize  -I$(KOS_BASE)/utils
 
 all: rm-elf convert-textures convert-models $(TARGET)
 

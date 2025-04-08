@@ -36,3 +36,9 @@ pvr_test/pvrtest.elf
 pvr_test/pvrtest.o
 .gitignore
 pvr_test/dms.o
+pvr_nonindexed_test/romdisk.o
+.gitignore
+pvr_nonindexed_test/pvrtest.elf
+pvr_nonindexed_test/main.o
+.gitignore
+pvr_nonindexed_test/romdisk.img

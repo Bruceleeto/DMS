@@ -51,3 +51,12 @@ pvr_animated/romdisk.img
 .gitignore
 pvr_animated/romdisk/darkseid0.dt
 pvr_animated/romdisk/darkseid.dms
+gldc_animated/dms.o
+gldc_animated/gl_png.o
+.gitignore
+gldc_animated/romdisk/dragon.dms
+gldc_animated/romdisk.o
+gldc_animated/romdisk.img
+gldc_animated/romdisk/texture0.tex
+gldc_animated/main.o
+gldc_animated/anim_gl.elf

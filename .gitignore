@@ -42,3 +42,12 @@ pvr_nonindexed_test/pvrtest.elf
 pvr_nonindexed_test/main.o
 .gitignore
 pvr_nonindexed_test/romdisk.img
+pvr_animated/pvranim.elf
+pvr_animated/dms.o
+pvr_animated/pvrtest.o
+.gitignore
+pvr_animated/romdisk.o
+pvr_animated/romdisk.img
+.gitignore
+pvr_animated/romdisk/darkseid0.dt
+pvr_animated/romdisk/darkseid.dms

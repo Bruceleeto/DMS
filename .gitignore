@@ -60,3 +60,10 @@ gldc_animated/romdisk.img
 gldc_animated/romdisk/texture0.tex
 gldc_animated/main.o
 gldc_animated/anim_gl.elf
+pvr_vase/romdisk.o
+.gitignore
+pvr_vase/romdisk.img
+pvr_vase/pvrtest.o
+pvr_vase/pvranim.elf
+pvr_vase/dms.o
+pvr_vase/pvr_vase.elf

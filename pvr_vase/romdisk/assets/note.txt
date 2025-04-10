@@ -1,0 +1,1 @@
+just used https://skmp.gitlab.io/pvrtex.js/  to convert didn't rely on auto convert

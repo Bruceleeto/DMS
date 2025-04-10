@@ -218,7 +218,10 @@ int main(int argc, char **argv) {
     float fps = 0.0f;
 
     while(1) {
+        vid_border_color(0, 0, 0);
         pvr_wait_ready();
+        vid_border_color(255, 0, 0);
+
         pvr_scene_begin();
         
         // First render the 3D model
@@ -239,6 +242,7 @@ int main(int argc, char **argv) {
         RenderDMSModel(gModel, rotX, rotY, rotZ, modelX, modelY, modelZ, &dr_state);
         
         pvr_scene_finish();
+        vid_border_color(0, 255, 0);
 
         frames++;
         uint32 current_time = timer_ms_gettime64();

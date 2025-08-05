@@ -50,10 +50,16 @@ wip
 ###  `pvr_vase`
 
 
-![raylib](images/pvr_vase.png)
+![pvr_vase](images/pvr_vase.png)
 
 ---
 
+###  `clipping_demo`
+
+
+![clipping_demo](images/clipping_demo.png)
+
+---
 
 
 
@@ -79,3 +85,9 @@ https://opengameart.org/content/cethiels-dragon-3d
 Darkseid
 
 https://www.models-resource.com/mobile/injusticegodsamongus/model/12668/
+
+Clipping / Camera / Matrix code for Clipping Demo from Twada's bloom Demo
+
+https://dcemulation.org/phpBB/viewtopic.php?t=105642
+
+

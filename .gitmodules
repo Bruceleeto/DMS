@@ -1,0 +1,3 @@
+[submodule "ToyTest"]
+	path = ToyTest
+	url = https://github.com/Bruceleeto/Toy.git

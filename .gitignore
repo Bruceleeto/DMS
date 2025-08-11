@@ -68,3 +68,17 @@ pvr_vase/pvranim.elf
 pvr_vase/dms.o
 pvr_vase/pvr_vase.elf
 clipping_demo/.vscode/settings.json
+.gitignore
+cube/main.o
+.gitignore
+cube/romdisk.o
+cube/romdisk/update.toy
+cube/romdisk/toylogo0.tex
+.gitignore
+cube/romdisk/game.toy
+cube/romdisk.img
+cube/romdisk/toy_box.dms
+cube/cube.elf
+cube/dms.o
+.gitignore
+cube/gl_png.o

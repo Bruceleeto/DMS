@@ -1,0 +1,9 @@
+x = x + vx;
+y = y + vy;
+rot = rot + 2.0;
+
+if (x > boundX) { vx = 0.0 - vx; x = boundX; }
+if (x < 0.0 - boundX) { vx = 0.0 - vx; x = 0.0 - boundX; }
+if (y > boundY) { vy = 0.0 - vy; y = boundY; }
+if (y < 0.0 - boundY) { vy = 0.0 - vy; y = 0.0 - boundY; }
+

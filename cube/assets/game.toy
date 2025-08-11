@@ -1,0 +1,9 @@
+var x = 0.0;
+var y = 0.0;
+var vx = 0.08;
+var vy = 0.06;
+var rot = 0.0;
+var boundX = 5.0;
+var boundY = 4.0;
+
+print "cube started";

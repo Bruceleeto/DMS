@@ -30,17 +30,17 @@ void updateController(DMSModel* model) {
 int main(int argc, char **argv) {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Animation Viewer");
     
-    // Load fox model
-    DMSModel* foxModel = LoadDMSModel("/rd/dragon.dms");
+    // Load dragon model
+    DMSModel* dragonModel = LoadDMSModel("/rd/dragon.dms");
     
-    if (!foxModel) {
-        printf("Failed to load fox model\n");
+    if (!dragonModel) {
+        printf("Failed to load dragon model\n");
         CloseWindow();
         return 1;
     }
     
     // Load texture
-    LoadDMSTextures(foxModel, "/rd", "/rd/texture.tex");
+    LoadDMSTextures(dragonModel, "/rd", "/rd/texture.tex");
     
     // Set up camera
     Camera3D camera = { 0 };
@@ -54,19 +54,19 @@ int main(int argc, char **argv) {
     Color backgroundColor = BLUE;
     
     // Initialize animation
-    if (GetDMSModelAnimationCount(foxModel) > 0) {
-        SetDMSModelAnimation(foxModel, currentAnimIndex);
+    if (GetDMSModelAnimationCount(dragonModel) > 0) {
+        SetDMSModelAnimation(dragonModel, currentAnimIndex);
     }
     
     // Main game loop
     while (running) {
-        updateController(foxModel);
+        updateController(dragonModel);
         float deltaTime = GetFrameTime();
         
         // Update animation
-        UpdateDMSModelAnimation(foxModel, deltaTime);
-        for (int i = 0; i < foxModel->meshCount; i++) {
-            UpdateDMSMeshAnimation(&foxModel->meshes[i], foxModel->skeleton);
+        UpdateDMSModelAnimation(dragonModel, deltaTime);
+        for (int i = 0; i < dragonModel->meshCount; i++) {
+            UpdateDMSMeshAnimation(&dragonModel->meshes[i], dragonModel->skeleton);
         }
         
         float rotationSpeed = 30.0f;  
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
         glTranslatef(0.0f, 0.0f, 0.0f);
         glRotatef(modelPosition.y, 0.0f, 1.0f, 0.0f);
        // glScalef(1.0f, 1.0f, 1.0f);
-        RenderDMSModel(foxModel, (Vector3){0.0f, 0.0f, 0.0f}, 1.0f, WHITE);
+        RenderDMSModel(dragonModel, (Vector3){0.0f, 0.0f, 0.0f}, 1.0f, WHITE);
         glPopMatrix();
         
         EndMode3D();
@@ -91,13 +91,13 @@ int main(int argc, char **argv) {
         DrawRectangle(0, 0, SCREEN_WIDTH, 40, Fade(RAYWHITE, 0.6f));
         DrawText("Animation Viewer", 10, 10, 20, DARKGRAY);
         
-        if (GetDMSModelAnimationCount(foxModel) > 0) {
-            const char* animName = GetDMSModelAnimationName(foxModel, currentAnimIndex);
+        if (GetDMSModelAnimationCount(dragonModel) > 0) {
+            const char* animName = GetDMSModelAnimationName(dragonModel, currentAnimIndex);
             if (animName) {
                 DrawText(TextFormat("Animation: %s (%d/%d)", 
                     animName, 
                     currentAnimIndex + 1, 
-                    GetDMSModelAnimationCount(foxModel)), 
+                    GetDMSModelAnimationCount(dragonModel)), 
                     180, 10, 20, DARKGRAY);
             }
         }
@@ -109,11 +109,11 @@ int main(int argc, char **argv) {
     }
     
     // Cleanup
-    for (int i = 0; i < foxModel->textureCount; i++) {
-        if (foxModel->textures[i].id != 0) UnloadTexture(foxModel->textures[i]);
+    for (int i = 0; i < dragonModel->textureCount; i++) {
+        if (dragonModel->textures[i].id != 0) UnloadTexture(dragonModel->textures[i]);
     }
     
-    UnloadDMSModel(foxModel);
+    UnloadDMSModel(dragonModel);
     CloseWindow();
     
     return 0;

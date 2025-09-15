@@ -96,9 +96,9 @@ void optimize_mesh();
 bool can_join_strips(const std::vector<size_t>& strip1, const std::vector<size_t>& strip2);
 void ExportTristrippedModel(const Model* model, const char* filename);
 
-#define POSITION_THRESHOLD 0.1f  // 1mm of movement
-#define ROTATION_THRESHOLD 0.1f  // ~0.06 degrees
-#define SCALE_THRESHOLD    0.1f  // 0.1% scale change
+#define POSITION_THRESHOLD 0.001f  // 0.1mm of movement
+#define ROTATION_THRESHOLD 0.001f  // ~0.0006 degrees
+#define SCALE_THRESHOLD    0.001f  // 0.001% scale change
 
 // Globals
 Skeleton skeleton = { 0 };
